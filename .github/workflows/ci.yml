@@ -1,4 +1,4 @@
-name: Check index.html
+name: Check HTML files
 
 on:
   push:
@@ -6,11 +6,11 @@ on:
       - main
 
 jobs:
-  check-index:
+  check-html:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check index.html
-        run: test -f index.html
+      - name: Check HTML files
+        run: test -f index.html && test -f test.html
