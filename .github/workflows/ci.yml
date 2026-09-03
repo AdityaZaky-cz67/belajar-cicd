@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check HTML files
-        run: test -f filerusak.html && test -f test.html
+        run: test -f index.html && test -f test.html
