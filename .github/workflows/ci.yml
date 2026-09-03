@@ -1,0 +1,16 @@
+name: Check index.html
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check index.html
+        run: test -f index.html
