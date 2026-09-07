@@ -26,7 +26,6 @@ jobs:
         shell: powershell
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          npx --yes vercel --prod --token "$env:VERCEL_TOKEN" --scope "$env:VERCEL_ORG_ID" --project "$env:VERCEL_PROJECT_ID" --confirm
+          npx --yes vercel --prod --token "$env:VERCEL_TOKEN" --project "$env:VERCEL_PROJECT_ID" --confirm
