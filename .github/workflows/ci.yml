@@ -19,13 +19,15 @@ jobs:
       - name: Mulai Uji Semua File HTML
         run: ./node_modules/.bin/htmlhint "**/*.html"
 
-            # --- INI PROSES CD (Pengiriman ke Server) ---
+      # --- INI PROSES CD (Pengiriman ke Server) ---
+      - name: Hapus .vercel Directory
+        run: rm -rf .vercel
+
       - name: Pasang Website Otomatis ke Vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          # UBAH TIGA BARIS DI BAWAH INI (Langsung masukkan ID Anda di sini)
-          vercel-org-id: "team_9FGHvBNlA4p6vjqfYofksAs1"
-          vercel-project-id: "prj_8OEFcouq8w4bJiBBYHolfp9ZamRr"
+          vercel-org-id: "team_9FGHvBNlA4p6vjqfYofksAsl"
+          vercel-project-id: "prj_8OEFcouq8w4bJiBBYHoLfp9ZamRr"
           vercel-args: '--prod'
 
