@@ -22,11 +22,11 @@ jobs:
         run: npm install htmlhint
 
       - name: Mulai Uji Semua File HTML
-        shell: pwsh
+        shell: powershell
         run: npx htmlhint "**/*.html"
 
       - name: Hapus .vercel Directory
-        shell: pwsh
+        shell: powershell
         run: |
           if (Test-Path ".vercel") {
             Remove-Item -Path ".vercel" -Recurse -Force
