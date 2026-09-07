@@ -13,7 +13,7 @@ jobs:
 
       # --- INI PROSES CI (Pengecekan) ---
       - name: Install Alat Penguji HTML
-        run: npm install htmlhint
+        run: npm install -g htmlhint
 
       - name: Mulai Uji Semua File HTML
         run: htmlhint "**/*.html"
