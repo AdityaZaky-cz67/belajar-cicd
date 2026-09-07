@@ -18,12 +18,9 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
-
       - name: Validasi HTML
         shell: powershell
-        run: npx htmlhint "**/*.html"
+        run: npx --yes htmlhint "**/*.html"
 
       - name: Deploy ke Vercel
         shell: powershell
@@ -32,4 +29,4 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          npx vercel --prod --token "$env:VERCEL_TOKEN" --scope "$env:VERCEL_ORG_ID" --confirm
+          npx --yes vercel --prod --token "$env:VERCEL_TOKEN" --scope "$env:VERCEL_ORG_ID" --project "$env:VERCEL_PROJECT_ID" --confirm
