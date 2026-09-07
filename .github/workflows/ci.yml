@@ -13,16 +13,24 @@ jobs:
       - name: Ambil Kode dari GitHub
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Install Alat Penguji HTML
         run: npm install htmlhint
 
       - name: Mulai Uji Semua File HTML
-        shell: bash
-        run: ./node_modules/.bin/htmlhint "**/*.html"
+        shell: pwsh
+        run: npx htmlhint "**/*.html"
 
       - name: Hapus .vercel Directory
-        shell: bash
-        run: rm -rf .vercel
+        shell: pwsh
+        run: |
+          if (Test-Path ".vercel") {
+            Remove-Item -Path ".vercel" -Recurse -Force
+          }
 
       - name: Pasang Website Otomatis ke Vercel
         uses: amondnet/vercel-action@v20
