@@ -2,32 +2,32 @@ name: Pipeline CI dan CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   proses-ci-dan-cd:
     runs-on: self-hosted
+
     steps:
       - name: Ambil Kode dari GitHub
         uses: actions/checkout@v4
 
-      # --- INI PROSES CI (Pengecekan) ---
       - name: Install Alat Penguji HTML
         run: npm install htmlhint
 
-      # UBAH BARIS INI: Panggil langsung dari folder lokal node_modules
       - name: Mulai Uji Semua File HTML
+        shell: bash
         run: ./node_modules/.bin/htmlhint "**/*.html"
 
-      # --- INI PROSES CD (Pengiriman ke Server) ---
       - name: Hapus .vercel Directory
+        shell: bash
         run: rm -rf .vercel
 
       - name: Pasang Website Otomatis ke Vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: "team_9FGHvBNlA4p6vjqfYofksAsl"
-          vercel-project-id: "prj_8OEFcouq8w4bJiBBYHoLfp9ZamRr"
-          vercel-args: '--prod'
-
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: "--prod"
