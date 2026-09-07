@@ -13,10 +13,11 @@ jobs:
 
       # --- INI PROSES CI (Pengecekan) ---
       - name: Install Alat Penguji HTML
-        run: npm install -g htmlhint
+        run: npm install htmlhint
 
+      # UBAH BARIS INI: Panggil langsung dari folder lokal node_modules
       - name: Mulai Uji Semua File HTML
-        run: htmlhint "**/*.html"
+        run: ./node_modules/.bin/htmlhint "**/*.html"
 
       # --- INI PROSES CD (Pengiriman ke Server) ---
       - name: Pasang Website Otomatis ke Vercel
