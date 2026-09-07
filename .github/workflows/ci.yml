@@ -18,24 +18,18 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install Alat Penguji HTML
-        run: npm install htmlhint
+      - name: Install dependencies
+        run: npm install
 
-      - name: Mulai Uji Semua File HTML
+      - name: Validasi HTML
         shell: powershell
         run: npx htmlhint "**/*.html"
 
-      - name: Hapus .vercel Directory
+      - name: Deploy ke Vercel
         shell: powershell
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
-          if (Test-Path ".vercel") {
-            Remove-Item -Path ".vercel" -Recurse -Force
-          }
-
-      - name: Pasang Website Otomatis ke Vercel
-        uses: amondnet/vercel-action@v20
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
+          npx vercel --prod --token "$env:VERCEL_TOKEN" --scope "$env:VERCEL_ORG_ID" --confirm
