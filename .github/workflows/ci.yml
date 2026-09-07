@@ -1,4 +1,4 @@
-name: Pipeline CI dan CD
+name: CI/CD
 
 on:
   push:
@@ -6,26 +6,18 @@ on:
       - main
 
 jobs:
-  proses-ci-dan-cd:
-    runs-on: self-hosted
+  build-and-deploy:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Ambil Kode dari GitHub
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Validasi HTML
-        shell: powershell
+      - name: Validate HTML
         run: npx --yes htmlhint "**/*.html"
 
-      - name: Deploy ke Vercel
-        shell: powershell
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          npx --yes vercel --prod --token "$env:VERCEL_TOKEN" --project "$env:VERCEL_PROJECT_ID" --confirm
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
